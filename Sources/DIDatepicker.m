@@ -22,23 +22,14 @@ NSString * const kDIDatepickerCellIndentifier = @"kDIDatepickerCellIndentifier";
 
 @implementation DIDatepicker
 
-- (void)awakeFromNib
+-(void)layoutSubviews
 {
     [self setupViews];
 }
 
-- (id)initWithFrame:(CGRect)frame
-{
-    if(self = [super initWithFrame:frame]){
-        [self setupViews];
-    }
-    
-    return self;
-}
-
 - (void)setupViews
 {
-    self.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    self.translatesAutoresizingMaskIntoConstraints = NO;
     self.backgroundColor = [UIColor whiteColor];
     self.bottomLineColor = [UIColor colorWithWhite:0.816 alpha:1.000];
     self.selectedDateBottomLineColor = self.tintColor;
@@ -102,7 +93,7 @@ NSString * const kDIDatepickerCellIndentifier = @"kDIDatepickerCellIndentifier";
 
 - (void)selectDate:(NSDate *)date
 {
-    [[NSCalendar currentCalendar] rangeOfUnit:NSDayCalendarUnit startDate:&date interval:NULL forDate:date];
+    [[NSCalendar currentCalendar] rangeOfUnit:NSCalendarUnitDay startDate:&date interval:NULL forDate:date];
     
     NSAssert([self.dates indexOfObject:date] != NSNotFound, @"Date not found in dates array");
     
